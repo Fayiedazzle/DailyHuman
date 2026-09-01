@@ -8,12 +8,6 @@
 <link rel="apple-touch-icon" href="icon-512.png">
 <meta name="theme-color" content="#d9c5a0">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-<!-- MONETAG TOP STICKY - zone 11704581 -->
-<script>(function(s){s.dataset.zone='11704581',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<!-- MONETAG INFEED BOTTOM - zone 11704636 -->
-<script>(function(s){s.dataset.zone='11704636',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0e0e0e;color:#fff;font-family:'Space Grotesk',sans-serif}
@@ -23,7 +17,6 @@ body{background:#0e0e0e;color:#fff;font-family:'Space Grotesk',sans-serif}
 .tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .tab{white-space:nowrap;padding:10px 18px;border-radius:100px;border:1px solid #222;background:#1a1a1a;color:#888;font-size:13px;font-weight:700;cursor:pointer}
 .tab.active{background:#d9c5a0;color:#000;border-color:#d9c5a0}
-.top-ad{width:100%;min-height:90px;max-height:90px;background:#151515;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #1a1a1a;overflow:hidden;position:sticky;top:118px;z-index:9}
 .date-small{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;margin-top:2px}
 .input-wrap{padding:18px 16px 0;display:flex;flex-direction:column;align-items:center}
 .input-wrap input{width:100%;max-width:380px;background:#1a1a1a;border:1px solid #222;border-radius:14px;padding:16px;font-size:16px;color:#fff;outline:none}
@@ -31,8 +24,7 @@ body{background:#0e0e0e;color:#fff;font-family:'Space Grotesk',sans-serif}
 .btn{width:100%;max-width:380px;background:#d9c5a0;color:#000;border:0;padding:16px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:10px}
 .card-area{padding:16px;display:flex;flex-direction:column;align-items:center}
 canvas{width:100%;max-width:380px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.7)}
-.infeed-ad{width:100%;max-width:380px;min-height:110px;max-height:120px;background:#151515;border:1px dashed #222;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:16px 0;overflow:hidden}
-#downloadBtn{width:100%;max-width:380px;background:#fff;color:#000;border:0;padding:16px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
+#downloadBtn{width:100%;max-width:380px;background:#fff;color:#000;border:0;padding:16px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:20px}
 .footer{padding:30px 16px;text-align:center;border-top:1px solid #151515;margin-top:20px}
 .footer a{color:#666;font-size:12px;text-decoration:none;margin:0 10px;font-family:'JetBrains Mono',monospace}
 .footer p{color:#555;font-size:11px;margin-top:10px}
@@ -49,14 +41,12 @@ canvas{width:100%;max-width:380px;border-radius:20px;box-shadow:0 20px 60px rgba
 </div>
 <div class="date-small" id="dateLabel"></div>
 </div>
-<div class="top-ad" id="topAdSlot"></div>
 <div class="input-wrap">
 <input id="nameInput" placeholder="Enter your name e.g Brian" maxlength="20" />
 <button class="btn" id="genBtn">GENERATE TODAY'S LEAK →</button>
 </div>
 <div class="card-area">
 <canvas id="cardCanvas" width="1080" height="1350"></canvas>
-<div class="infeed-ad" id="bottomAdSlot"></div>
 <button id="downloadBtn">⬇ DOWNLOAD CARD</button>
 </div>
 <div class="footer">
@@ -214,16 +204,6 @@ document.getElementById('downloadBtn').addEventListener('click',()=>{
  const a=document.createElement('a'); a.download=`DailyHuman-${currentTab}-${lastName}-${todayStr}.png`; a.href=c.toDataURL('image/png'); a.click();
 });
 generate();
-
-// === ADS REFRESH EVERY 30s - No X, fits your spaces ===
-setInterval(()=>{
-  try{
-    document.querySelectorAll('script[data-zone]').forEach(s=>s.remove());
-    let t1=document.createElement('script'); t1.dataset.zone='11704581'; t1.src='https://nap5k.com/tag.min.js'; document.body.appendChild(t1);
-    let t2=document.createElement('script'); t2.dataset.zone='11704636'; t2.src='https://nap5k.com/tag.min.js'; document.body.appendChild(t2);
-  }catch(e){}
-},30000);
-
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
 </script>
 </body>
