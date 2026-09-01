@@ -1,6 +1,22 @@
+// === DAILYHUMAN PWA + MONETAG MERGED ===
+
+// Monetag Part
+self.options = {
+  "domain": "3nbf4.com",
+  "zoneId": 11704293
+}
+self.lary = ""
+importScripts('https://3nbf4.com/act/files/service-worker.min.js?r=sw')
+
+// DailyHuman PWA Part
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open('dailyhuman-v1').then(cache => cache.addAll(['./','./index.html','./manifest.json'])));
+  e.waitUntil(
+    caches.open('dailyhuman-v1').then(cache => cache.addAll(['./','./index.html','./manifest.json']))
+  );
 });
+
 self.addEventListener('fetch', e => {
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+  e.respondWith(
+    caches.match(e.request).then(r => r || fetch(e.request))
+  );
 });
