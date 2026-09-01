@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DailyHuman</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="theme-color" content="#d9c5a0">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0e0e0e;color:#fff;font-family:'Space Grotesk',sans-serif}
+.header-wrap{width:100%;display:flex;flex-direction:column;align-items:center;padding:24px 16px 14px;gap:12px;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#0e0e0e;z-index:10}
+.logo{font-weight:700;font-size:26px;letter-spacing:-1px}
+.logo span{color:#d9c5a0}
+.tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.tab{white-space:nowrap;padding:10px 18px;border-radius:100px;border:1px solid #222;background:#1a1a1a;color:#888;font-size:13px;font-weight:700;cursor:pointer}
+.tab.active{background:#d9c5a0;color:#000;border-color:#d9c5a0}
+.top-ad{width:100%;min-height:90px;background:#151515;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #1a1a1a}
+.top-ad span{color:#444;font-size:10px;letter-spacing:2px;text-align:center;padding:10px}
+.date-small{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;margin-top:2px}
+.input-wrap{padding:18px 16px 0;display:flex;flex-direction:column;align-items:center}
+.input-wrap input{width:100%;max-width:380px;background:#1a1a1a;border:1px solid #222;border-radius:14px;padding:16px;font-size:16px;color:#fff;outline:none}
+.input-wrap input:focus{border-color:#d9c5a0}
+.btn{width:100%;max-width:380px;background:#d9c5a0;color:#000;border:0;padding:16px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:10px}
+.card-area{padding:16px;display:flex;flex-direction:column;align-items:center}
+canvas{width:100%;max-width:380px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+.infeed-ad{width:100%;max-width:380px;min-height:110px;background:#151515;border:1px dashed #222;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:16px 0}
+.infeed-ad span{color:#444;font-size:10px;letter-spacing:1.5px;text-align:center;padding:10px}
+#downloadBtn{width:100%;max-width:380px;background:#fff;color:#000;border:0;padding:16px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
+.footer{padding:30px 16px;text-align:center;border-top:1px solid #151515;margin-top:20px}
+.footer a{color:#666;font-size:12px;text-decoration:none;margin:0 10px;font-family:'JetBrains Mono',monospace}
+.footer p{color:#555;font-size:11px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="header-wrap">
+<div class="logo">DAILY<span>HUMAN</span></div>
+<div class="tabs">
+<button class="tab active" data-tab="card">DAILY CARD</button>
+<button class="tab" data-tab="fbi">FBI FILE</button>
+<button class="tab" data-tab="price">PRICE TAG</button>
+<button class="tab" data-tab="glitch">GLITCH</button>
+</div>
+<div class="date-small" id="dateLabel"></div>
+</div>
+<div class="top-ad"><span>PASTE MONETAG TOP CODE HERE</span></div>
+<div class="input-wrap">
+<input id="nameInput" placeholder="Enter your name e.g Brian" maxlength="20" />
+<button class="btn" id="genBtn">GENERATE TODAY'S LEAK →</button>
+</div>
+<div class="card-area">
+<canvas id="cardCanvas" width="1080" height="1350"></canvas>
+<div class="infeed-ad"><span>PASTE MONETAG INFEED CODE HERE</span></div>
+<button id="downloadBtn">⬇ DOWNLOAD CARD</button>
+</div>
+<div class="footer">
+<a href="privacy.html">Privacy Policy</a>
+<a href="https://wa.me/254714755569">+254714755569</a>
+<p>@2026 DailyHuman</p>
+</div>
+<script>
+function cyrb53(str,seed=0){let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return 4294967296*(2097151&h2)+(h1>>>0)}
+function mulberry32(a){return function(){var t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296}}
+const today = new Date();
+const todayStr = today.toISOString().slice(0,10);
+const datePretty = today.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+document.getElementById('dateLabel').textContent = datePretty.toUpperCase()+" DROP";
+const ROASTS={
+ fbi_mood:["Annoying but harmless","Broke but dangerous","Soft heart, hard head","Mostly harmless","Wanted for stealing food","Certified chatterbox","Low battery threat","High delulu threat"],
+ fbi_seen:["Asking for WiFi","Borrowing bundles near base","Outside mama mboga","At charging station begging","With broke gang","Disappearing after eating","Stalking ex status","On free mode","At bus stage asking fare","Inside kiosk negotiating airtime"],
+ fbi_secret:["Still stalks ex, we saw","Owes Kevin 500 since 2023","Screenshots everything","Cries in shower","Has 2% battery always","Will lie about money","Eats once, posts 10 times","Said 'I'll pay tomorrow'","Deletes messages after sending","Uses 3 different names"],
+ fbi_tracking:["84% chance you get caught lying today","92% chance you ask for hotspot","76% chance you disappear after food","88% chance you screenshot this","95% chance you deny being broke"],
+ fbi_status:["Under watch. Don't delete chats","Monitored. WiFi hunter alert","Flagged. Broke but active","On parole from broke gang","Wanted for unfinished bundles","Case open. Keeps promising tomorrow","Observation: Charges phone 5x daily"],
+ price_mood:["People are tired of you","Market is disappointed","Buyers are ghosting","Volatile and broke","Nobody is buying today","Oversupply of excuses","Demand for vibes only"],
+ price_sell:["Your friends think you're broke","Mama mboga wants her money","WiFi provider is tracking you","Bundle is finished, career too","Landlord is typing...","Airtime loan due tomorrow","You posted but no likes"],
+ price_analyst:["Sell {N} today, buy back tomorrow","Hold {N}, pain is temporary","Dump {N}, save your bundles","Avoid {N}, too many stories","{N} is crashing, hide your food","Buy {N} only if you love suffering","Short {N}, long vibes"],
+ glitch_bugs:["The NPC That Never Loads","The One Who Asks For Hotspot","Background Character Error","Battery Saver Always On","Rizz Not Found","Money Magnet Reversed","WiFi Vampire"],
+ glitch_bug2:["Money disappears when you touch it","WiFi crashes when you join","Battery drains fast","Reality failed to render you","Vibes load, money doesn't","Charger connected but not charging","Data ends when you go online"],
+ glitch_fix:["Restart your life","Delete yourself and reinstall","Turn it off and on (you)","Pay debt to fix bug","Stop asking for WiFi to fix","Charge your ambition","Update your excuses"],
+ glitch_other:["Battery drains fast, 0 rizz","WiFi unstable when you speak","Screen freezes on your face","Money app crashes near you","Bundle finishes in 2 minutes","Storage full of screenshots","Airplane mode but still broke","Hotspot request failed"],
+ excuse:["The economy is why I'm broke","My village people are the reason","Network was bad","I was in a meeting (sleeping)","My phone died","Bundle finished","I thought it was tomorrow","My blood group is broke"],
+ fail:["Lost $5 and dignity","Charged phone whole day, still 2%","Posted story, 0 views","Wore drip, went nowhere","Tried to cook, ordered water","Borrowed 50 to send 20","Smiled for camera, rent due"],
+ worth:["$12","$3","$89","$1.50","$0.50 (on discount)","$420 but debts $500","Priceless but broke","$0.99 + free WiFi"],
+ warning:["Brian is outside and broke. Hide your food.","Brian is online. Expect 10 forwards.","Brian has bundle today. Mute him.","Brian is typing... run.","Brian saw your status, will ask for money.","Brian is near. Lock your bundles."],
+ unserious:["A+","F","B-","C","A","D","A++ in vibes"],
+ vibe:["Still charging in the corner","On DND but broke","Main character in wrong movie","Offline but online in groups","Surviving on vibes"]
+};
+function randPick(rand, arr){return arr[Math.floor(rand()*arr.length)]}
+let currentTab='card'; let lastName='BRIAN';
+function generate(){
+ const raw=(document.getElementById('nameInput').value.trim()||'Brian').toUpperCase();
+ lastName=raw;
+ const seed=cyrb53(raw+"|"+todayStr+"|"+currentTab);
+ const rand=mulberry32(seed);
+ draw(raw, rand);
+}
+function draw(name, rand){
+ const c=document.getElementById('cardCanvas'); const ctx=c.getContext('2d');
+ ctx.clearRect(0,0,1080,1350);
+ let bg="#f5f1e8";
+ if(currentTab==='fbi') bg="#ece6d6";
+ if(currentTab==='price') bg="#111111";
+ if(currentTab==='glitch') bg="#151515";
+ if(currentTab==='card'){ bg="#f5f1e8"; }
+ ctx.fillStyle=bg; ctx.fillRect(0,0,1080,1350);
+ const darkText = bg.startsWith("#f")||bg.startsWith("#e");
+ const txt = darkText?"#111":"#f0ebe1";
+ const muted = darkText?"#5a5a5a":"#8a8a8a";
+ const nude="#d9c5a0";
+ if(currentTab==='price'){
+  ctx.fillStyle=txt; ctx.font="700 27px 'JetBrains Mono'";
+  ctx.fillText(name+" STOCK - "+datePretty+" Market Open",60,90);
+  ctx.fillStyle=darkText?"#111":"#d9c5a0"; ctx.fillRect(60,110,960,2);
+  const price="$"+( (cyrb53(name+todayStr)%20000)+500).toLocaleString();
+  const down=Math.floor(rand()*30)+1;
+  const isDown=rand()>0.3;
+  ctx.fillStyle=txt; ctx.font="800 52px 'Space Grotesk'";
+  ctx.fillText("PRICE: "+price+" ("+(isDown?"DOWN":"UP")+" -"+down+"% today)",60,190);
+  ctx.font="600 30px 'Space Grotesk'"; ctx.fillStyle=muted;
+  wrap(ctx,"MARKET MOOD: "+randPick(rand,ROASTS.price_mood),60,250,960,38);
+  wrap(ctx,"SELL SIGNAL: "+randPick(rand,ROASTS.price_sell),60,295,960,38);
+  ctx.fillStyle=nude; ctx.fillRect(60,345,960,1);
+  ctx.fillStyle=txt; ctx.font="800 28px 'JetBrains Mono'"; ctx.fillText("TODAY'S STATS:",60,395);
+  const hustle=Math.floor(rand()*100); const rizz=Math.floor(rand()*100); const luck=Math.floor(rand()*30);
+  ctx.font="600 26px 'JetBrains Mono'";
+  ctx.fillText("Hustle: "+hustle+"% - "+(hustle<30?"Turn off data and sleep":hustle<60?"Trying but bundles low":"CEO grind today"),60,440);
+  ctx.fillText("Rizz: "+rizz+"% - "+(rizz>80?"Dangerous today":rizz>50?"Mid but trying":"No rizz found"),60,480);
+  ctx.fillText("Luck: "+luck+"% - "+(luck<10?"Don't bet":"Maybe play lotto"),60,520);
+  ctx.fillStyle=nude; ctx.fillRect(60,570,960,1);
+  ctx.font="400 24px 'JetBrains Mono'"; ctx.fillStyle=muted;
+  let analyst=randPick(rand,ROASTS.price_analyst).replace("{N}",name);
+  wrap(ctx,'ANALYST NOTE: "'+analyst+'"',60,620,960,34);
+  ctx.font="600 22px 'JetBrains Mono'"; ctx.fillStyle=muted; ctx.fillText("DailyHuman - "+datePretty+" 2026",60,1280);
+ } else if(currentTab==='fbi'){
+  ctx.fillStyle=txt; ctx.font="800 30px 'JetBrains Mono'"; ctx.fillText("*** CONFIDENTIAL - FBI DAILY LEAK ***",60,90);
+  ctx.fillRect(60,110,960,2);
+  ctx.font="700 38px 'Space Grotesk'"; ctx.fillText("SUBJECT: "+name,60,180);
+  ctx.font="600 26px 'JetBrains Mono'";
+  wrap(ctx,"THREAT LEVEL: "+randPick(rand,ROASTS.fbi_mood),60,240,960,32);
+  wrap(ctx,"LAST SEEN: "+randPick(rand,ROASTS.fbi_seen),60,280,960,32);
+  wrap(ctx,"SECRET: "+randPick(rand,ROASTS.fbi_secret),60,320,960,32);
+  ctx.fillStyle=nude; ctx.fillRect(60,370,960,1);
+  ctx.fillStyle=txt; ctx.font="600 28px 'Space Grotesk'";
+  wrap(ctx,"TODAY'S TRACKING: "+randPick(rand,ROASTS.fbi_tracking),60,420,960,38);
+  ctx.font="400 24px 'JetBrains Mono'"; ctx.fillStyle=muted;
+  wrap(ctx,"FILE ID: #"+Math.floor(rand()*90000+10000)+" | STATUS: "+randPick(rand,ROASTS.fbi_status),60,500,960,32);
+  ctx.font="600 22px 'JetBrains Mono'"; ctx.fillText("DailyHuman - "+datePretty+" 2026",60,1280);
+ } else if(currentTab==='glitch'){
+  ctx.fillStyle=txt; ctx.font="700 26px 'JetBrains Mono'";
+  ctx.fillText("SYSTEM ERROR REPORT - "+datePretty,60,90);
+  ctx.fillStyle=nude; ctx.fillRect(60,110,960,2);
+  ctx.fillStyle="#d9c5a0"; ctx.font="800 42px 'Space Grotesk'";
+  wrap(ctx,"YOU ARE: "+randPick(rand,ROASTS.glitch_bugs).toUpperCase(),60,190,960,52);
+  ctx.fillStyle=txt; ctx.font="600 28px 'Space Grotesk'";
+  wrap(ctx,"BUG: "+randPick(rand,ROASTS.glitch_bug2),60,300,960,36);
+  wrap(ctx,"FIX: "+randPick(rand,ROASTS.glitch_fix),60,350,960,36);
+  ctx.fillStyle=nude; ctx.fillRect(60,400,960,1);
+  ctx.fillStyle=muted; ctx.font="500 24px 'JetBrains Mono'";
+  wrap(ctx,"OTHER BUGS TODAY: "+randPick(rand,ROASTS.glitch_other),60,450,960,32);
+  wrap(ctx,randPick(rand,ROASTS.glitch_other)+" | "+Math.floor(rand()*100)+"% rizz",60,490,960,32);
+  ctx.font="600 22px 'JetBrains Mono'"; ctx.fillText("DailyHuman - "+datePretty+" 2026",60,1280);
+ } else {
+  const day=today.getDay();
+  let title="";
+  if(day===1) title="Daily Fail Card";
+  else if(day===2) title="Unserious Report Card";
+  else if(day===3) title="Daily Excuse Card";
+  else if(day===4) title="Worth Card";
+  else if(day===5) title="Warning Card";
+  else title="Daily Vibe Card";
+  ctx.fillStyle=txt; ctx.font="700 26px 'JetBrains Mono'"; ctx.fillText(title.toUpperCase()+" - "+datePretty,60,90);
+  ctx.fillStyle=nude; ctx.fillRect(60,115,960,2);
+  if(day===1){
+    ctx.fillStyle=txt; ctx.font="800 46px 'Space Grotesk'"; ctx.fillText(name+"'S FAIL TODAY:",60,190);
+    ctx.font="600 36px 'Space Grotesk'"; wrap(ctx,randPick(rand,ROASTS.fail),60,260,960,48);
+  } else if(day===2){
+    ctx.fillStyle=txt; ctx.font="800 46px 'Space Grotesk'"; ctx.fillText(name+":",60,190);
+    const r1=randPick(rand,ROASTS.unserious); const r2=randPick(rand,ROASTS.unserious); const r3=randPick(rand,ROASTS.unserious);
+    ctx.font="600 30px 'JetBrains Mono'"; ctx.fillText("Rizz: "+r1,60,260); ctx.fillText("Money: "+r2,60,305); ctx.fillText("Vibes: "+r3,60,350);
+  } else if(day===3){
+    ctx.fillStyle=txt; ctx.font="700 30px 'Space Grotesk'"; ctx.fillText("My excuse today:",60,190);
+    ctx.font="600 38px 'Space Grotesk'"; wrap(ctx,'"'+randPick(rand,ROASTS.excuse)+'"',60,250,960,50);
+  } else if(day===4){
+    ctx.font="800 50px 'Space Grotesk'"; ctx.fillStyle=txt; wrap(ctx,name+" IS WORTH "+randPick(rand,ROASTS.worth)+" TODAY",60,190,960,58);
+    ctx.font="700 26px 'JetBrains Mono'"; ctx.fillStyle=muted; ctx.fillText("(DO NOT SELL)",60,300);
+  } else if(day===5){
+    ctx.fillStyle=txt; ctx.font="800 38px 'Space Grotesk'"; wrap(ctx,"WARNING: "+randPick(rand,ROASTS.warning).replace("Brian",name),60,190,960,48);
+  } else {
+    ctx.fillStyle=txt; ctx.font="800 42px 'Space Grotesk'"; wrap(ctx,name+"'S VIBE TODAY: "+randPick(rand,ROASTS.vibe),60,190,960,52);
+  }
+  ctx.font="600 22px 'JetBrains Mono'"; ctx.fillStyle=muted; ctx.fillText("DailyHuman - "+datePretty+" 2026",60,1280);
+ }
+}
+function wrap(ctx, text, x, y, maxW, lh){
+ const words=text.split(' '); let line=''; let yy=y;
+ for(let i=0;i<words.length;i++){ const test=line+words[i]+' '; if(ctx.measureText(test).width>maxW && i>0){ ctx.fillText(line,x,yy); line=words[i]+' '; yy+=lh;} else line=test;}
+ ctx.fillText(line,x,yy);
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',e=>{
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ e.target.classList.add('active'); currentTab=e.target.dataset.tab;
+ const r=mulberry32(cyrb53(lastName+"|"+todayStr+"|"+currentTab)); draw(lastName,r);
+}));
+document.getElementById('genBtn').addEventListener('click', generate);
+document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')generate()});
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+ const c=document.getElementById('cardCanvas');
+ const a=document.createElement('a'); a.download=`DailyHuman-${currentTab}-${lastName}-${todayStr}.png`; a.href=c.toDataURL('image/png'); a.click();
+});
+generate();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+</script>
+</body>
+</html>
